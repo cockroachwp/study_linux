@@ -41,6 +41,8 @@ int main(int argc, char *argv[])
 		printf("bind fail ! \r\n");
 		return -1;
 	}
+	printf("bind is ok !\r\n");
+
 
 	if (-1 == listen(sfp, 5))
 
@@ -53,6 +55,11 @@ int main(int argc, char *argv[])
 		printf("accept is faill\r\n");
 		return -1;
 	}
+
+	char buf_ip[30];
+	memset(buf_ip,'\0',sizeof(buf_ip));
+	inet_ntop(AF_INET,&c_add.sin_addr,buf_ip,sizeof(buf_ip));
+    printf("get connect,ip is %s,port is %d\n",buf_ip,ntohs(c_add.sin_port));
 
     printf("accept ok!\r\nServer start get connect from %#x : %#x\r\n", 
 		ntohl(c_add.sin_addr.s_addr), ntohs(c_add.sin_port));
